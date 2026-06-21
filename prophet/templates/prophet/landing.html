@@ -3,257 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Pitch Prophet | Football Predictions</title>
+    <title>The Pitch Prophet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* CSS RESET & VARIABLES */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body {
+            background-color: #0b1313;
+            color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            /* That deep green-blue/teal tone */
-            --bg-color: #0b3c3c; 
-            --bg-gradient: linear-gradient(135deg, #083131 0%, #0f4c4c 100%);
-            --navbar-bg: #0b0c10;
-            --gold-text: #ffb703;
-            --gold-glow: 0px 4px 20px rgba(255, 183, 3, 0.4);
-            --card-bg: #121212;
-            --white: #ffffff;
-            --gray: #b3b3b3;
-        }
-
-        body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--white);
-            min-height: 100vh;
-        }
-
-        /* NAVIGATION BAR */
-        header {
-            background-color: var(--navbar-bg);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--gold-text);
-            box-shadow: var(--gold-glow);
-        }
-
-        .logo {
-            color: var(--gold-text);
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0px 2px 10px rgba(255, 183, 3, 0.5);
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold-text);
-        }
-
-        /* HERO SECTION */
-        .hero {
+        .hero-section {
+            background: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+            border-bottom: 3px solid #d4af37;
+            padding: 40px 20px;
             text-align: center;
-            padding: 3rem 1rem;
         }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        .gold-text {
+            color: #d4af37;
+            font-weight: bold;
         }
-
-        .hero p {
-            color: var(--gray);
-            font-size: 1.1rem;
+        .nav-tabs {
+            border-bottom: 2px solid #1e293b;
+            justify-content: center;
+            margin-bottom: 30px;
         }
-
-        /* PREDICTIONS CONTAINER */
-        .predictions-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem 2rem;
+        .nav-link {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none !important;
+            padding: 10px 30px;
         }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--gold-text);
-            padding-left: 10px;
+        .nav-link:hover {
+            color: #d4af37;
         }
-
-        /* THE BLACK MATCH BOXES (CSC 121 style with Gold Shadow) */
+        .nav-link.active {
+            color: #d4af37 !important;
+            background-color: transparent !important;
+            border-bottom: 3px solid #d4af37 !important;
+        }
         .match-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 183, 3, 0.2);
-            box-shadow: var(--gold-glow);
-            transition: transform 0.3s ease;
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+            position: relative;
         }
-
         .match-card:hover {
             transform: translateY(-3px);
+            border-color: #d4af37;
         }
-
-        .teams {
-            flex: 2;
-        }
-
-        .team-row {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 5px 0;
-        }
-
-        .match-info {
-            flex: 1;
-            text-align: center;
-            border-left: 1px solid #333;
-            border-right: 1px solid #333;
-            padding: 0 10px;
-        }
-
-        .date-badge {
-            font-size: 0.8rem;
-            color: var(--gold-text);
+        .vs-text {
+            font-size: 0.85rem;
+            color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
-        .prediction-box {
-            flex: 1;
-            text-align: right;
-        }
-
-        .tip {
+        .prediction-badge {
+            background-color: #064e3b;
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 6px 12px;
+            border-radius: 6px;
             display: inline-block;
-            background-color: var(--gold-text);
-            color: #000;
+            font-weight: bold;
+        }
+        .odds-badge {
+            background-color: #1f2937;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .success-stamp {
+            background-color: #10b981;
+            color: #0b1313;
             font-weight: 800;
-            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            padding: 4px 8px;
             border-radius: 4px;
-            font-size: 1.1rem;
+            position: absolute;
+            top: 15px;
+            right: 15px;
             text-transform: uppercase;
-        }
-
-        .odds {
-            display: block;
-            margin-top: 5px;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 600px) {
-            .match-card {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            .match-info {
-                border: none;
-                padding: 10px 0;
-            }
-            .prediction-box {
-                text-align: center;
-            }
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- BLACK NAVBAR WITH GOLD TEXT LOGO -->
-    <header>
-        <div class="logo">The Pitch Prophet</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">VIP Tips</a></li>
-            <li><a href="/admin">Admin Portal</a></li>
+    <div class="hero-section">
+        <h1 class="display-4 fw-bold">THE PITCH <span class="gold-text">PROPHET</span></h1>
+        <p class="lead text-light opacity-75">Guaranteed Factual Football Analysis & Predictions</p>
+    </div>
+
+    <div class="container my-5">
+        
+        <ul class="nav nav-tabs" id="predictionTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="today-tab" data-bs-toggle="tab" data-bs-target="#today-pane" type="button" role="tab">Today's Picks</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tomorrow-tab" data-bs-toggle="tab" data-bs-target="#tomorrow-pane" type="button" role="tab">Tomorrow's Picks</button>
+            </li>
         </ul>
-    </header>
 
-    <section class="hero">
-        <h1>Tomorrow's Divine Selections</h1>
-        <p>Unlocking value metrics straight from the algorithms.</p>
-    </section>
-
-    <!-- MAIN CONTENT DISPLAYING DYNAMIC MATCHES -->
-    <main class="predictions-container">
-        <h2 class="section-title">Verified Predictions</h2>
-
-        {% if games %}
-            {% for game in games %}
-            <!-- Game Box -->
-            <div class="match-card">
-                <div class="teams">
-                    <div class="team-row">{{ game.home_team }}</div>
-                    <div class="team-row">{{ game.away_team }}</div>
-                </div>
-                
-                <div class="match-info">
-                    <span class="date-badge">{{ game.match_date }}</span>
-                </div>
-                
-                <div class="prediction-box">
-                    <span class="tip">{{ game.prediction }}</span>
-                    <span class="odds">Odds: {{ game.odds }}</span>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <!-- Fallback static placeholders if database is empty -->
-            <div class="match-card">
-                <div class="teams">
-                    <div class="team-row">Chelsea</div>
-                    <div class="team-row">Arsenal</div>
-                </div>
-                <div class="match-info">
-                    <span class="date-badge">June 22, 2026</span>
-                </div>
-                <div class="prediction-box">
-                    <span class="tip">Over 2.5</span>
-                    <span class="odds">Odds: 1.75</span>
+        <div class="tab-content" id="predictionTabsContent">
+            
+            <div class="tab-pane fade show active" id="today-pane" role="tabpanel" tabindex="0">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        {% if today_games %}
+                            {% for game in today_games %}
+                            <div class="match-card">
+                                {% if game.is_successful %}
+                                    <span class="success-stamp">✓ WON</span>
+                                {% endif %}
+                                <div class="row align-items-center text-center text-md-start">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <h4 class="mb-1 fw-bold">{{ game.home_team }}</h4>
+                                        <div class="vs-text my-1">vs</div>
+                                        <h4 class="mb-0 fw-bold">{{ game.away_team }}</h4>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <div class="me-2 mb-2 d-inline-block">
+                                            <span class="text-muted d-block small text-center mb-1">PREDICTION</span>
+                                            <div class="prediction-badge">{{ game.prediction }}</div>
+                                        </div>
+                                        <div class="d-inline-block">
+                                            <span class="text-muted d-block small text-center mb-1">ODDS</span>
+                                            <div class="odds-badge">{{ game.odds }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5 text-muted">
+                                <p class="fs-5">No predictions uploaded for today yet. Check back soon!</p>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
-            <div class="match-card">
-                <div class="teams">
-                    <div class="team-row">Real Madrid</div>
-                    <div class="team-row">Barcelona</div>
-                </div>
-                <div class="match-info">
-                    <span class="date-badge">June 22, 2026</span>
-                </div>
-                <div class="prediction-box">
-                    <span class="tip">GG (BTTS)</span>
-                    <span class="odds">Odds: 1.60</span>
+            <div class="tab-pane fade" id="tomorrow-pane" role="tabpanel" tabindex="0">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        {% if tomorrow_games %}
+                            {% for game in tomorrow_games %}
+                            <div class="match-card">
+                                {% if game.is_successful %}
+                                    <span class="success-stamp">✓ WON</span>
+                                {% endif %}
+                                <div class="row align-items-center text-center text-md-start">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <h4 class="mb-1 fw-bold">{{ game.home_team }}</h4>
+                                        <div class="vs-text my-1">vs</div>
+                                        <h4 class="mb-0 fw-bold">{{ game.away_team }}</h4>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <div class="me-2 mb-2 d-inline-block">
+                                            <span class="text-muted d-block small text-center mb-1">PREDICTION</span>
+                                            <div class="prediction-badge">{{ game.prediction }}</div>
+                                        </div>
+                                        <div class="d-inline-block">
+                                            <span class="text-muted d-block small text-center mb-1">ODDS</span>
+                                            <div class="odds-badge">{{ game.odds }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5 text-muted">
+                                <p class="fs-5">Tomorrow's divine analysis is currently cooking. Stay tuned!</p>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        {% endif %}
 
-    </main>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

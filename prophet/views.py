@@ -1,13 +1,19 @@
 from django.shortcuts import render
+from django.utils import timezone
+from datetime import timedelta
 from .models import PredictedGame
-from datetime import date, timedelta
 
 def landing_page(request):
-    # Fetch games scheduled for tomorrow, or just grab the latest upcoming games
-    tomorrow = date.today() + timedelta(days=1)
-    upcoming_games = PredictedGame.objects.filter(match_date__gte=date.today()).order_by('match_date')
+    # Get today's and tomorrow's dates automatically
+    today = timezone.localdate()
+    tomorrow = today + timedelta(days=1)
+    
+    # Filter the database matches
+    today_games = PredictedGame.objects.filter(match_date=today)
+    tomorrow_games = PredictedGame.objects.filter(match_date=tomorrow)
     
     context = {
-        'games': upcoming_games
+        'today_games': today_games,
+        'tomorrow_games': tomorrow_games,
     }
     return render(request, 'prophet/landing.html', context)
