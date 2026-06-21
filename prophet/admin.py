@@ -1,0 +1,8 @@
+from django.contrib import admin
+from .models import PredictedGame
+
+@admin.register(PredictedGame)
+class PredictedGameAdmin(admin.ModelAdmin):
+    list_display = ('home_team', 'away_team', 'match_date', 'prediction', 'odds')
+    list_filter = ('match_date',)
+    search_fields = ('home_team', 'away_team')

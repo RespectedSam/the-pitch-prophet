@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pitch Prophet | Football Predictions</title>
+    <style>
+        /* CSS RESET & VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            /* That deep green-blue/teal tone */
+            --bg-color: #0b3c3c; 
+            --bg-gradient: linear-gradient(135deg, #083131 0%, #0f4c4c 100%);
+            --navbar-bg: #0b0c10;
+            --gold-text: #ffb703;
+            --gold-glow: 0px 4px 20px rgba(255, 183, 3, 0.4);
+            --card-bg: #121212;
+            --white: #ffffff;
+            --gray: #b3b3b3;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* NAVIGATION BAR */
+        header {
+            background-color: var(--navbar-bg);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold-text);
+            box-shadow: var(--gold-glow);
+        }
+
+        .logo {
+            color: var(--gold-text);
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0px 2px 10px rgba(255, 183, 3, 0.5);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-text);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* PREDICTIONS CONTAINER */
+        .predictions-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--gold-text);
+            padding-left: 10px;
+        }
+
+        /* THE BLACK MATCH BOXES (CSC 121 style with Gold Shadow) */
+        .match-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 183, 3, 0.2);
+            box-shadow: var(--gold-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .teams {
+            flex: 2;
+        }
+
+        .team-row {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        .match-info {
+            flex: 1;
+            text-align: center;
+            border-left: 1px solid #333;
+            border-right: 1px solid #333;
+            padding: 0 10px;
+        }
+
+        .date-badge {
+            font-size: 0.8rem;
+            color: var(--gold-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prediction-box {
+            flex: 1;
+            text-align: right;
+        }
+
+        .tip {
+            display: inline-block;
+            background-color: var(--gold-text);
+            color: #000;
+            font-weight: 800;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .odds {
+            display: block;
+            margin-top: 5px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 600px) {
+            .match-card {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .match-info {
+                border: none;
+                padding: 10px 0;
+            }
+            .prediction-box {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BLACK NAVBAR WITH GOLD TEXT LOGO -->
+    <header>
+        <div class="logo">The Pitch Prophet</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">VIP Tips</a></li>
+            <li><a href="/admin">Admin Portal</a></li>
+        </ul>
+    </header>
+
+    <section class="hero">
+        <h1>Tomorrow's Divine Selections</h1>
+        <p>Unlocking value metrics straight from the algorithms.</p>
+    </section>
+
+    <!-- MAIN CONTENT DISPLAYING DYNAMIC MATCHES -->
+    <main class="predictions-container">
+        <h2 class="section-title">Verified Predictions</h2>
+
+        {% if games %}
+            {% for game in games %}
+            <!-- Game Box -->
+            <div class="match-card">
+                <div class="teams">
+                    <div class="team-row">{{ game.home_team }}</div>
+                    <div class="team-row">{{ game.away_team }}</div>
+                </div>
+                
+                <div class="match-info">
+                    <span class="date-badge">{{ game.match_date }}</span>
+                </div>
+                
+                <div class="prediction-box">
+                    <span class="tip">{{ game.prediction }}</span>
+                    <span class="odds">Odds: {{ game.odds }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Fallback static placeholders if database is empty -->
+            <div class="match-card">
+                <div class="teams">
+                    <div class="team-row">Chelsea</div>
+                    <div class="team-row">Arsenal</div>
+                </div>
+                <div class="match-info">
+                    <span class="date-badge">June 22, 2026</span>
+                </div>
+                <div class="prediction-box">
+                    <span class="tip">Over 2.5</span>
+                    <span class="odds">Odds: 1.75</span>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="teams">
+                    <div class="team-row">Real Madrid</div>
+                    <div class="team-row">Barcelona</div>
+                </div>
+                <div class="match-info">
+                    <span class="date-badge">June 22, 2026</span>
+                </div>
+                <div class="prediction-box">
+                    <span class="tip">GG (BTTS)</span>
+                    <span class="odds">Odds: 1.60</span>
+                </div>
+            </div>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>
