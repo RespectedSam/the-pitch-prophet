@@ -206,8 +206,8 @@ function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         alert("SportyBet booking code [" + text + "] copied! Redirecting to SportyBet...");
         
-        // This opens SportyBet Nigeria in a brand new browser tab
-        window.open('https://www.sportybet.com/ng/', '_blank');
+        // This safely redirects mobile browsers directly to the live site
+        window.location.href = 'https://www.sportybet.com/ng/';
     }).catch(err => {
         console.error('Could not copy code: ', err);
     });
