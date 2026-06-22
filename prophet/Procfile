@@ -1,0 +1,1 @@
+web: gunicorn pitch_prophet_project.wsgi
