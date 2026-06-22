@@ -142,7 +142,9 @@
                                 </div>
                                 {% if game.sportybet_code %}
     <div class="booking-code-container" style="margin-top: 15px; text-align: center;">
-        <button class="btn-sportybet" onclick="copyToClipboard('{{ game.sportybet_code }}')" style="background-color: #E31A22; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; transition: background 0.3s ease;">
+        <button class="btn-sportybet" onclick="copyToClipboard('{{ game.sportybet_code }}')" style="background-color: #E31A22; 
+        color: white;  border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%;
+         transition: background 0.3s ease;">
             🔴 Copy SportyBet Code: {{ game.sportybet_code }}
         </button>
     </div>
@@ -199,10 +201,13 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+    <script>
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
-        alert("SportyBet booking code copied: " + text);
+        alert("SportyBet booking code [" + text + "] copied! Redirecting to SportyBet...");
+        
+        // This opens SportyBet Nigeria in a brand new browser tab
+        window.open('https://www.sportybet.com/ng/', '_blank');
     }).catch(err => {
         console.error('Could not copy code: ', err);
     });
